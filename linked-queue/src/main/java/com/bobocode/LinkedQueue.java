@@ -7,7 +7,21 @@ package com.bobocode;
  *
  * @param <T> a generic parameter
  */
+
 public class LinkedQueue<T> implements Queue<T> {
+	class Node{
+		Node next;
+		Node prev;
+		T item;
+
+		Node(T element){
+			item = element;
+	        next = null;
+	        prev = null;
+		}
+	}
+	private Node firstNode;
+	private Node lastNode;
 
     /**
      * Adds an element to the end of the queue.
@@ -15,7 +29,20 @@ public class LinkedQueue<T> implements Queue<T> {
      * @param element the element to add
      */
     public void add(T element) {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        //throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        Node newNode = new Node(element);
+        
+        //first element
+        if ((lastNode == null) && (firstNode == null)){
+        	lastNode = newNode;
+        	firstNode = newNode;
+        	return;
+        }
+        
+    	lastNode.next = newNode;
+    	newNode.prev = lastNode;
+        
+        lastNode = newNode;        
     }
 
     /**
@@ -24,7 +51,14 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an element that was retrieved from the head or null if queue is empty
      */
     public T poll() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        //throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+    	if (isEmpty())
+    		return null;
+    	
+    	Node node = firstNode;
+    	firstNode = node.next;
+    			
+    	return node.item;
     }
 
     /**
@@ -33,7 +67,14 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return an integer value that is a size of queue
      */
     public int size() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        //throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+    	int size = 0;
+    	Node element = firstNode;
+    	while (element != null) {
+    		element = element.next;
+    		size++;
+    	}
+    	return size;
     }
 
     /**
@@ -42,6 +83,11 @@ public class LinkedQueue<T> implements Queue<T> {
      * @return {@code true} if the queue is empty, returns {@code false} if it's not
      */
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+        //throw new UnsupportedOperationException("This method is not implemented yet"); // todo: implement this method
+    	if (firstNode == null) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 }
